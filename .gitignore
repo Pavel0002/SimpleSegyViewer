@@ -87,3 +87,4 @@ simpleViewer/SimpleViewer/.vs/SimpleViewer/v16/ipch/AutoPCH/a35a2613d147044c/MAI
 simpleViewer/SimpleViewer/SimpleViewer.sln
 simpleViewer/SimpleViewer/.vs/SimpleViewer/v16/ipch/AutoPCH/6aeca3b969bd64d6/MAINWINDOW.ipch
 *.ipch
+*.log
