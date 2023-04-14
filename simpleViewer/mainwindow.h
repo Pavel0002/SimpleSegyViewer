@@ -18,11 +18,11 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
 
 private:
-    QLabel *imageLabel;
-    QPixmap image;
-    qreal zoomFactor;
+    QLabel *m_image_label;
+    QPixmap m_image;
+    qreal m_zoom_factor;
 
-    void openImage(const QString &fileName);
+    void openImage(const QString &file_name);
     void updateImage();
     void mousePressEvent(QMouseEvent *event) override;
 
