@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QWheelEvent>
+#include <QPoint>
 
 class MainWindow : public QMainWindow
 {
@@ -21,6 +22,8 @@ private:
     QLabel *m_image_label;
     QPixmap m_image;
     qreal m_zoom_factor;
+
+    std::vector<QPoint> m_pickedPath;
 
     void openImage(const QString &file_name);
     void updateImage();

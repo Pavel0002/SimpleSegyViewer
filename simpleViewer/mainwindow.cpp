@@ -73,11 +73,13 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             int blue = qBlue(color);
             qDebug() << "Clicked on pixel at (" << position.x() << "," << position.y() << "), color: (" << red << "," << green << "," << blue << ")";
 
+            m_pickedPath.emplace_back(QPoint(position.x(), position.y()));
+
             // Modify the color of the clicked pixel
-            QImage modified_image = m_image.toImage();
-            modified_image.setPixel(position, qRgb(0, 0, 0));
-            m_image = QPixmap::fromImage(modified_image);
-            updateImage();
+            //QImage modified_image = m_image.toImage();
+            //modified_image.setPixel(position, qRgb(0, 0, 0));
+            //m_image = QPixmap::fromImage(modified_image);
+            //updateImage();
         }
     }
 
