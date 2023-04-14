@@ -23,7 +23,7 @@ private:
     QPixmap m_image;
     qreal m_zoom_factor;
 
-    std::vector<QPoint> m_pickedPath;
+    std::vector<QPoint> m_picked_path;
 
     void openImage(const QString &file_name);
     void updateImage();
