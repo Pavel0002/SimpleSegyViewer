@@ -25,12 +25,19 @@ std::string MainWindow::getCurrentDirectory()
 void MainWindow::readGatherFromBinaryFile(const std::string &filename)
 {
     std::ifstream input_file(filename, std::ios::binary);
-
+    
     // Read the number of rows and columns from the file
-    int samples_count;
-	int traces_count;
-    input_file.read(reinterpret_cast<char *>(&samples_count), sizeof(samples_count));
-    input_file.read(reinterpret_cast<char *>(&traces_count), sizeof(traces_count));
+    int samples_count = 0;
+	int traces_count = 0;
+	if (input_file.is_open()) 
+    {
+        input_file.read(reinterpret_cast<char *>(&samples_count), sizeof(samples_count));
+        input_file.read(reinterpret_cast<char *>(&traces_count), sizeof(traces_count));
+	}
+	else 
+	{
+        throw std::runtime_error("Could not open file");
+	}
 
     m_gather_2d.resize(boost::extents[samples_count][traces_count]);
 
@@ -40,6 +47,7 @@ void MainWindow::readGatherFromBinaryFile(const std::string &filename)
         for (int j = 0; j < traces_count; j++)
         {
             float value;
+            //input_file >> value;
             input_file.read(reinterpret_cast<char *>(&value), sizeof(value));
             m_gather_2d[i][j] = static_cast<double>(value);
         }
@@ -105,6 +113,8 @@ void MainWindow::convertSegyToBinaryFile(const QString &native_separators_filena
 		segy_utility_full_path + " " + native_separators_filename + " " + binary_filename + " " + from_segy_command;
 	// Note: currently are .Net Framework exe files are used
 	int segy_utility_result = std::system(qUtf8Printable(command_to_exe));
+	if (segy_utility_result != 0)
+        throw std::runtime_error("Seg-y file reading error!");
 }
 
 void MainWindow::openSegy(const QString &filename)
@@ -149,7 +159,6 @@ m_zoom_factor_height(1.0)
     openImage(QFileDialog::getOpenFileName(this, tr("Open Image"), ".", tr("Image Files (*.png *.jpg *.bmp)")));
 
 	openSegy(QFileDialog::getOpenFileName(this, tr("Open Seg-y"), ".", tr("Seg-y Files (*.sgy *.segy)")));
-
 }
 
 MainWindow::~MainWindow()
